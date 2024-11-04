@@ -28,7 +28,7 @@ class FilterCheckBoxItemsAdapter(var items:MutableList<String>, var isChecked:Li
 
     override fun onBindViewHolder(holder: FilterCheckBoxHolder, position: Int) {
         if(holder.absoluteAdapterPosition==position) {
-            holder.isItemChecked.text = items[position]
+            holder.isItemChecked.text = "\t\t"+items[position]
             println("980123 ${items[position]} is checked ${FilterFragmentSearch.checkedList}")
             if(isDiscount) {
                 println("98982  on else ${FilterFragmentSearch.checkedDiscountList}")

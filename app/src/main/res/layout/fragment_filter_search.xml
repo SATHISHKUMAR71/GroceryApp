@@ -16,7 +16,6 @@
         android:background="@drawable/brand_search_backgroound"
         android:queryBackground="@android:color/transparent"
         android:queryHint="Search Brand Name"
-
         android:iconifiedByDefault="false"
         app:layout_constraintTop_toTopOf="parent" />
 <!--    <com.google.android.material.textfield.TextInputLayout-->

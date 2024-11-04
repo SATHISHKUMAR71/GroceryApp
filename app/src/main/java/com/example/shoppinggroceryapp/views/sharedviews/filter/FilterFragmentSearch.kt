@@ -46,6 +46,7 @@ class FilterFragmentSearch(private var brandList:List<String>) : Fragment(),Butt
             newList.add(false)
         }
         val searchBar = view.findViewById<SearchView>(R.id.searchViewBrand)
+
         var adapter = FilterCheckBoxItemsAdapter(brandList.toMutableList(),newList,isDiscount?:false,this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
