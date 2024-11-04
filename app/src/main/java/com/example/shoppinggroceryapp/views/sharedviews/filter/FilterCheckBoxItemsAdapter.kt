@@ -60,7 +60,7 @@ class FilterCheckBoxItemsAdapter(var items:MutableList<String>, var isChecked:Li
             holder.isItemChecked.setOnClickListener {
                 if(holder.isItemChecked.isChecked){
                     if(isDiscount){
-                        when(holder.isItemChecked.text.toString()) {
+                        when(holder.isItemChecked.text.toString().trimStart()) {
                             "10% or more" -> FilterFragmentSearch.checkedDiscountList.add(10f)
                             "20% or more" -> FilterFragmentSearch.checkedDiscountList.add(20f)
                             "30% or more" -> FilterFragmentSearch.checkedDiscountList.add(30f)
@@ -69,12 +69,12 @@ class FilterCheckBoxItemsAdapter(var items:MutableList<String>, var isChecked:Li
                         }
                     }
                     else{
-                        FilterFragmentSearch.checkedList.add(holder.isItemChecked.text.toString())
+                        FilterFragmentSearch.checkedList.add(holder.isItemChecked.text.toString().trimStart())
                     }
                 }
                 else{
                     if(isDiscount){
-                        when(holder.isItemChecked.text.toString()) {
+                        when(holder.isItemChecked.text.toString().trimStart()) {
                             "10% or more" -> FilterFragmentSearch.checkedDiscountList.remove(10f)
                             "20% or more" -> FilterFragmentSearch.checkedDiscountList.remove(20f)
                             "30% or more" -> FilterFragmentSearch.checkedDiscountList.remove(30f)
@@ -83,7 +83,7 @@ class FilterCheckBoxItemsAdapter(var items:MutableList<String>, var isChecked:Li
                         }
                     }
                     else {
-                        FilterFragmentSearch.checkedList.remove(holder.isItemChecked.text.toString())
+                        FilterFragmentSearch.checkedList.remove(holder.isItemChecked.text.toString().trimStart())
                     }
                 }
                 if(isDiscount){
