@@ -1,6 +1,7 @@
 package com.example.shoppinggroceryapp.views.sharedviews.productviews.adapter
 
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -105,6 +106,7 @@ class ProductListAdapter(var fragment: Fragment,
             return ProductLargeImageHolder(LayoutInflater.from(parent.context).inflate(R.layout.cart_price_detail_view,parent,false))
         }
     }
+
 
     override fun getItemViewType(position: Int): Int {
         return if(tag=="C" && position==productEntityList.size+1){
@@ -263,7 +265,9 @@ class ProductListAdapter(var fragment: Fragment,
                         else {
                             holder.itemView.findViewById<TextView>(R.id.moreImagesText).apply {
                                 text = "+$it more"
-                                tooltipText = "This Product has $it more Images"
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    tooltipText = "This Product has $it more Images"
+                                }
                                 this.setOnClickListener{
                                     this.performLongClick()
                                 }

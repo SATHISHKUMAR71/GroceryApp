@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             app:contentScrim="@android:color/transparent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways|snap">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

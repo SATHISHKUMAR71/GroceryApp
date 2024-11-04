@@ -1,62 +1,44 @@
 package com.example.shoppinggroceryapp.views.sharedviews.productviews.productlist
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.OptIn
 import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.core.data.repository.AddressRepository
-import com.core.data.repository.AuthenticationRepository
-import com.core.data.repository.CartRepository
-import com.core.data.repository.HelpRepository
-import com.core.data.repository.OrderRepository
-import com.core.data.repository.ProductRepository
-import com.core.data.repository.SearchRepository
-import com.core.data.repository.SubscriptionRepository
-import com.core.data.repository.UserRepository
 import com.core.domain.products.Product
 import com.example.shoppinggroceryapp.MainActivity
 import com.example.shoppinggroceryapp.R
-import com.example.shoppinggroceryapp.framework.data.authentication.AuthenticationDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.address.AddressDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.cart.CartDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.help.HelpDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.order.OrderDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.product.ProductDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.search.SearchDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.subscription.SubscriptionDataSourceImpl
-import com.example.shoppinggroceryapp.framework.data.user.UserDataSourceImpl
 import com.example.shoppinggroceryapp.framework.db.database.AppDatabase
-import com.example.shoppinggroceryapp.views.userviews.cartview.FindNumberOfCartItems
 import com.example.shoppinggroceryapp.helpers.fragmenttransaction.FragmentTransaction
 import com.example.shoppinggroceryapp.helpers.toast.ShowShortToast
 import com.example.shoppinggroceryapp.views.GroceryAppSharedVMFactory
-import com.example.shoppinggroceryapp.views.userviews.cartview.cart.CartFragment
-import com.example.shoppinggroceryapp.views.userviews.category.CategoryFragment
-import com.example.shoppinggroceryapp.views.userviews.offer.OfferFragment
-import com.example.shoppinggroceryapp.views.sharedviews.filter.FilterFragment
-import com.example.shoppinggroceryapp.views.retailerviews.addeditproduct.AddOrEditProductFragment
-import com.example.shoppinggroceryapp.views.sharedviews.sort.BottomSheetDialogFragment
-import com.example.shoppinggroceryapp.views.sharedviews.sort.ProductSorter
 import com.example.shoppinggroceryapp.views.initialview.InitialFragment
+import com.example.shoppinggroceryapp.views.retailerviews.addeditproduct.AddOrEditProductFragment
+import com.example.shoppinggroceryapp.views.sharedviews.filter.FilterFragment
 import com.example.shoppinggroceryapp.views.sharedviews.filter.ResetFilterValues
 import com.example.shoppinggroceryapp.views.sharedviews.productviews.adapter.ProductListAdapter
 import com.example.shoppinggroceryapp.views.sharedviews.productviews.productdetail.ProductDetailFragment
+import com.example.shoppinggroceryapp.views.sharedviews.sort.BottomSheetDialogFragment
+import com.example.shoppinggroceryapp.views.sharedviews.sort.ProductSorter
+import com.example.shoppinggroceryapp.views.userviews.cartview.FindNumberOfCartItems
+import com.example.shoppinggroceryapp.views.userviews.cartview.cart.CartFragment
+import com.example.shoppinggroceryapp.views.userviews.category.CategoryFragment
+import com.example.shoppinggroceryapp.views.userviews.offer.OfferFragment
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
@@ -119,7 +101,7 @@ class ProductListFragment : Fragment() {
     @OptIn(ExperimentalBadgeUtils::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         val view =  inflater.inflate(R.layout.fragment_product_list, container, false)
@@ -135,6 +117,13 @@ class ProductListFragment : Fragment() {
         adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
         filterCountText = view.findViewById(R.id.filterCountTextView)
         toolbar = view.findViewById<MaterialToolbar>(R.id.productListToolBar)
+
+//        val params = toolbar.layoutParams as AppBarLayout.LayoutParams
+//        params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+//        toolbar.setLayoutParams(params)
+
+
+
         if(FilterFragment.badgeNumber !=0){
             filterCountText.text = FilterFragment.badgeNumber.toString()
             filterCountText.visibility = View.VISIBLE
@@ -342,6 +331,25 @@ class ProductListFragment : Fragment() {
             val bottomSheet = BottomSheetDialogFragment()
             bottomSheet.show(parentFragmentManager,"Bottom Sort Sheet")
         }
+//        productRV.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+//            override fun onGlobalLayout() {
+//                // Remove the listener to avoid multiple calls
+//                productRV.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//                // Get the height of the RecyclerView
+//                val recyclerViewHeight = productRV.height
+//                var globalHeight = 0
+//                val childCount = productRV.childCount
+//                for(i in 0 until childCount){
+//                    val height = productRV.getChildAt(i).height
+//                    println("434353 HEIGHT OF THE VIEW AT $i height value: $height")
+//                    if (height != null) {
+//                        globalHeight+=height
+//                    }
+//                }
+//                println("434353 GLOBAL HEIGHT height value: $globalHeight")
+//
+//            }
+//        })
 
         BottomSheetDialogFragment.selectedOption.observe(viewLifecycleOwner){
             if(it!=null) {
@@ -372,7 +380,7 @@ class ProductListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("#232 tag set on destroy in product list category called ")
+        println("908980 product rv height: ${productRV.measuredHeight}")
     }
     @OptIn(ExperimentalBadgeUtils::class)
     private fun attachBadge() {
@@ -568,5 +576,27 @@ class ProductListFragment : Fragment() {
             .withEndAction { notifyNoItems.visibility = View.VISIBLE }
             .start()
         println("89890090 after HIDE PRODUCT RV IS CALLED ${productRV.isVisible} ${notifyNoItems.isVisible}")
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            val params = toolbar.layoutParams as AppBarLayout.LayoutParams
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            toolbar.setLayoutParams(params)
+            val linearLayout = (view?.findViewById<CardView>(R.id.linearLayout15))
+            val linearLayoutParams = linearLayout?.layoutParams as AppBarLayout.LayoutParams
+            linearLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            linearLayout.layoutParams = linearLayoutParams
+        }
+        else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
+            val params = toolbar.layoutParams as AppBarLayout.LayoutParams
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+            toolbar.setLayoutParams(params)
+            val linearLayout = (view?.findViewById<CardView>(R.id.linearLayout15))
+            val linearLayoutParams = linearLayout?.layoutParams as AppBarLayout.LayoutParams
+            linearLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+            linearLayout.layoutParams = linearLayoutParams
+        }
     }
 }
