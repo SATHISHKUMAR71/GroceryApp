@@ -45,7 +45,7 @@ class FilterFragmentSearch(private var brandList:List<String>) : Fragment(),Butt
         for(i in brandList){
             newList.add(false)
         }
-        val searchBar = view.findViewById<SearchView>(R.id.searchViewBrand)
+        val searchBar = view.findViewById<androidx.appcompat.widget.SearchView>(R.id.searchViewBrand)
 
         var adapter = FilterCheckBoxItemsAdapter(brandList.toMutableList(),newList,isDiscount?:false,this)
         recyclerView.adapter = adapter
@@ -58,9 +58,11 @@ class FilterFragmentSearch(private var brandList:List<String>) : Fragment(),Butt
             println("123 ON CLOSE LISTENER")
             true
         }
-
-
-        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchBar.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn).setOnClickListener {
+            searchBar.setQuery("",false)
+            searchBar.clearFocus()
+        }
+        searchBar.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -74,6 +76,7 @@ class FilterFragmentSearch(private var brandList:List<String>) : Fragment(),Butt
             }
 
         })
+
         println("IS DISCOUNT VALUE: $isDiscount")
         if(isDiscount==true){
             searchBar?.visibility = View.GONE
