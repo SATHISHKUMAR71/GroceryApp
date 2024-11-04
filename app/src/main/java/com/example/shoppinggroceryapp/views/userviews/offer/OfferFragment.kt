@@ -38,6 +38,7 @@ import com.example.shoppinggroceryapp.framework.db.dao.RetailerDao
 import com.example.shoppinggroceryapp.framework.db.dao.UserDao
 import com.example.shoppinggroceryapp.framework.db.database.AppDatabase
 import com.example.shoppinggroceryapp.helpers.fragmenttransaction.FragmentTransaction
+import com.example.shoppinggroceryapp.helpers.toast.ShowShortToast
 import com.example.shoppinggroceryapp.views.GroceryAppSharedVMFactory
 import com.example.shoppinggroceryapp.views.GroceryAppUserVMFactory
 import com.example.shoppinggroceryapp.views.sharedviews.productviews.productlist.ProductListFragment
@@ -186,6 +187,14 @@ class OfferFragment : Fragment() {
                 offerViewModel.doSorting(adapter, it, productEntities, ProductSorter())?.let { list ->
                     productEntities = list
                 }
+                ShowShortToast.show(when(it){
+                    0 -> "Sorted by Manufacture Date"
+                    1 -> "Sorted by Expiry Date"
+                    2 -> "Sorted by Discount"
+                    3 -> "Sorted from Lowest to Highest Price"
+                    4 -> "Sorted from Highest to Lowest Price"
+                    else -> "Sorted"
+                },requireContext())
             }
             offerList.layoutManager?.let {layoutManager ->
                 (layoutManager as LinearLayoutManager).scrollToPosition(0)

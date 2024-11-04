@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinggroceryapp.R
 import com.example.shoppinggroceryapp.views.sharedviews.search.adapter.SearchListAdapter.Companion.searchList
 import com.example.shoppinggroceryapp.views.sharedviews.search.diffutil.SearchListDiffUtil
+import com.google.android.material.checkbox.MaterialCheckBox
 
 class FilterCheckBoxItemsAdapter(var items:MutableList<String>, var isChecked:List<Boolean>,var isDiscount:Boolean,var buttonVisibleCheck: ButtonVisibleCheck):RecyclerView.Adapter<FilterCheckBoxItemsAdapter.FilterCheckBoxHolder>() {
 
 
     inner class FilterCheckBoxHolder(checkBoxHolder:View):RecyclerView.ViewHolder(checkBoxHolder){
-        val isItemChecked =checkBoxHolder.findViewById<CheckBox>(R.id.fragmentOptionCheckbox)
+        val isItemChecked =checkBoxHolder.findViewById<MaterialCheckBox>(R.id.fragmentOptionCheckbox)
     }
 
     override fun onCreateViewHolder(

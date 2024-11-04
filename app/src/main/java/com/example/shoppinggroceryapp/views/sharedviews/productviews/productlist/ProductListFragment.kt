@@ -44,6 +44,7 @@ import com.example.shoppinggroceryapp.framework.data.user.UserDataSourceImpl
 import com.example.shoppinggroceryapp.framework.db.database.AppDatabase
 import com.example.shoppinggroceryapp.views.userviews.cartview.FindNumberOfCartItems
 import com.example.shoppinggroceryapp.helpers.fragmenttransaction.FragmentTransaction
+import com.example.shoppinggroceryapp.helpers.toast.ShowShortToast
 import com.example.shoppinggroceryapp.views.GroceryAppSharedVMFactory
 import com.example.shoppinggroceryapp.views.userviews.cartview.cart.CartFragment
 import com.example.shoppinggroceryapp.views.userviews.category.CategoryFragment
@@ -347,6 +348,14 @@ class ProductListFragment : Fragment() {
                 productListViewModel.doSorting(adapter,it,productEntityList,ProductSorter())?.let {list ->
                     productEntityList = list.toMutableList()
                 }
+                ShowShortToast.show(when(it){
+                    0 -> "Sorted by Manufacture Date"
+                    1 -> "Sorted by Expiry Date"
+                    2 -> "Sorted by Discount"
+                    3 -> "Sorted from Lowest to Highest Price"
+                    4 -> "Sorted from Highest to Lowest Price"
+                    else -> "Sorted"
+                },requireContext())
                 productRV.layoutManager?.let { layoutManager ->
                     (layoutManager as LinearLayoutManager).scrollToPosition(productListFirstVisiblePos?:0)
                 }
