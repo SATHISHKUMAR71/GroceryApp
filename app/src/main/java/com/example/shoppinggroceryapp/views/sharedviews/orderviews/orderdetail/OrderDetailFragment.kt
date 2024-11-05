@@ -172,28 +172,32 @@ class OrderDetailFragment : Fragment() {
         deliveryFrequency.text = selectedOrder?.deliveryFrequency
 
         if(selectedOrder?.deliveryFrequency!="Once"){
-            deleteSubscription.text = "Stop Subscription"
-            alertTitle = "Stop Subscription!!"
-            alertMessage = "Are you Sure to Stop the Subscription?"
-            nextDeliveryDate.visibility = View.VISIBLE
-            deliveryTimeSlot.visibility = View.VISIBLE
-            deliveryText.visibility =View.GONE
-            selectedOrder?.let {
-                orderDetailViewModel.getTimeSlot(it.orderId)
-            }
-            if(selectedOrder?.deliveryFrequency=="Daily"){
-                var text = "Next Delivery on ${DateGenerator.getDayAndMonth(DateGenerator.getDeliveryDate())}"
-                nextDeliveryDate.text = text
-            }
-            when(selectedOrder?.deliveryFrequency){
-                "Monthly Once" -> {
-                    selectedOrder?.let {
-                        orderDetailViewModel.getMonthlySubscriptionDate(it.orderId)
-                    }
+            if(selectedOrder?.deliveryStatus!="Cancelled") {
+                deleteSubscription.text = "Stop Subscription"
+                alertTitle = "Stop Subscription!!"
+                alertMessage = "Are you Sure to Stop the Subscription?"
+                nextDeliveryDate.visibility = View.VISIBLE
+                deliveryTimeSlot.visibility = View.VISIBLE
+                deliveryText.visibility = View.GONE
+                selectedOrder?.let {
+                    orderDetailViewModel.getTimeSlot(it.orderId)
                 }
-                "Weekly Once" -> {
-                    selectedOrder?.let {
-                        orderDetailViewModel.getWeeklySubscriptionDate(it.orderId)
+                if (selectedOrder?.deliveryFrequency == "Daily") {
+                    var text =
+                        "Next Delivery on ${DateGenerator.getDayAndMonth(DateGenerator.getDeliveryDate())}"
+                    nextDeliveryDate.text = text
+                }
+                when (selectedOrder?.deliveryFrequency) {
+                    "Monthly Once" -> {
+                        selectedOrder?.let {
+                            orderDetailViewModel.getMonthlySubscriptionDate(it.orderId)
+                        }
+                    }
+
+                    "Weekly Once" -> {
+                        selectedOrder?.let {
+                            orderDetailViewModel.getWeeklySubscriptionDate(it.orderId)
+                        }
                     }
                 }
             }
@@ -278,44 +282,52 @@ class OrderDetailFragment : Fragment() {
         orderDetailViewModel.selectedOrderProduct = MutableLiveData()
         isTimeSlotAvailable.observe(viewLifecycleOwner) { timeSlot ->
             orderDetailViewModel.date.observe(viewLifecycleOwner) {
-                val currentTime = DateGenerator.getCurrentTime()
-                var text = "Next Delivery on "
-                if (selectedOrder?.deliveryFrequency == "Weekly Once") {
-                    if (DateGenerator.getCurrentDay() == days[it]) {
-                        text = orderDetailViewModel.assignText(timeSlot,currentTime,selectedOrder)?:"Next Delivery on Next ${days[it]}"
-                    } else {
-                        text = "Next Delivery this "
-                        text += days[it]
-                    }
-                } else if (selectedOrder?.deliveryFrequency == "Monthly Once") {
-                    var currentDay = DateGenerator.getCurrentDayOfMonth()
-                    try {
-                        if (currentDay.toInt() > it) {
-                            text = "Next Delivery on ${
-                                DateGenerator.getDayAndMonth(
-                                    DateGenerator.getNextMonth().substring(0, 8) + it
-                                )
-                            }"
+                if (selectedOrder?.deliveryStatus != "Cancelled") {
+                    val currentTime = DateGenerator.getCurrentTime()
+                    var text = "Next Delivery on "
+                    if (selectedOrder?.deliveryFrequency == "Weekly Once") {
+                        if (DateGenerator.getCurrentDay() == days[it]) {
+                            text = orderDetailViewModel.assignText(
+                                timeSlot,
+                                currentTime,
+                                selectedOrder
+                            ) ?: "Next Delivery on Next ${days[it]}"
+                        } else {
+                            text = "Next Delivery this "
+                            text += days[it]
                         }
-                        else if (currentDay.toInt() == it) {
-                            text = orderDetailViewModel.assignText(timeSlot,currentTime,selectedOrder)?:"Next Delivery on ${
-                                DateGenerator.getDayAndMonth(
-                                    DateGenerator.getCurrentDate().substring(0, 8) + it
-                                )
-                            }"
+                    } else if (selectedOrder?.deliveryFrequency == "Monthly Once") {
+                        var currentDay = DateGenerator.getCurrentDayOfMonth()
+                        try {
+                            if (currentDay.toInt() > it) {
+                                text = "Next Delivery on ${
+                                    DateGenerator.getDayAndMonth(
+                                        DateGenerator.getNextMonth().substring(0, 8) + it
+                                    )
+                                }"
+                            } else if (currentDay.toInt() == it) {
+                                text = orderDetailViewModel.assignText(
+                                    timeSlot,
+                                    currentTime,
+                                    selectedOrder
+                                ) ?: "Next Delivery on ${
+                                    DateGenerator.getDayAndMonth(
+                                        DateGenerator.getCurrentDate().substring(0, 8) + it
+                                    )
+                                }"
+                            } else {
+                                text = "Next Delivery on ${
+                                    DateGenerator.getDayAndMonth(
+                                        DateGenerator.getCurrentDate().substring(0, 8) + it
+                                    )
+                                }"
+                            }
+                        } catch (e: Exception) {
                         }
-                        else {
-                            text = "Next Delivery on ${
-                                DateGenerator.getDayAndMonth(
-                                    DateGenerator.getCurrentDate().substring(0, 8) + it
-                                )
-                            }"
-                        }
-                    } catch (e: Exception) {
-                    }
 
+                    }
+                    nextDeliveryDate.text = text
                 }
-                nextDeliveryDate.text = text
             }
         }
 
