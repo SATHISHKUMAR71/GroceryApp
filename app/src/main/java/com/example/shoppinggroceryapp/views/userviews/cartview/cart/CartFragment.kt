@@ -61,6 +61,7 @@ class CartFragment : Fragment() {
     private lateinit var adapter: ProductListAdapter
     private lateinit var cartViewModel: CartViewModel
     private lateinit var cartAppBar:AppBarLayout
+    private lateinit var cartToolbar: MaterialToolbar
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,6 +77,7 @@ class CartFragment : Fragment() {
         ResetFilterValues.resetFilterValues()
         val continueButton = view.findViewById<MaterialButton>(R.id.continueButton)
         cartAppBar = view.findViewById<AppBarLayout>(R.id.carttoolbar)
+        cartToolbar = view.findViewById(R.id.linearLayout10)
         val db1 = AppDatabase.getAppDatabase(requireContext())
         val userDao = db1.getUserDao()
         val retailerDao = db1.getRetailerDao()
@@ -192,6 +194,17 @@ class CartFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            val params = (cartToolbar.layoutParams as AppBarLayout.LayoutParams)
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP or
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            cartToolbar.layoutParams = params
+        }
+        else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
+            val params = (cartToolbar.layoutParams as AppBarLayout.LayoutParams)
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+            cartToolbar.layoutParams = params
+        }
         cartAppBar.setExpanded(true)
     }
 
