@@ -24,7 +24,7 @@
         app:cardCornerRadius="10dp"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:layout_height="115dp">
+        android:layout_height="110dp">
         <ImageView
             android:id="@+id/orderedProductImage"
             android:layout_gravity="center"
@@ -36,9 +36,9 @@
         <LinearLayout
             android:paddingStart="10dp"
             android:layout_weight="1"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_width="0dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <androidx.cardview.widget.CardView
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Brand Name"/>
             <TextView
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:id="@+id/orderedProductFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,17 +74,20 @@
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:id="@+id/orderedProductQuantity"
                 android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="3dp"
                 android:layout_height="wrap_content"
                 android:text="Product Quantity"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                     android:id="@+id/orderedProductTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:text="Total Price ₹200"/>
 
@@ -95,6 +98,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
                     android:text="each @ "
+                    android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
 
                 <TextView
@@ -103,19 +107,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="₹20"
+                    android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:layout_width="wrap_content"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:text="No of Items"/>
                 <TextView
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:id="@+id/orderedNoOfProducts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
