@@ -71,6 +71,7 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
@@ -201,7 +202,7 @@ class ProductDetailFragment : Fragment() {
                 }
                 R.id.delete -> {
                     if(MainActivity.isRetailer){
-                        AlertDialog.Builder(context)
+                        MaterialAlertDialogBuilder(requireContext())
                             .setTitle("Delete Product!")
                             .setMessage("Are you Sure to delete this product in Inventory?")
                             .setNegativeButton("No"){dialog,which ->

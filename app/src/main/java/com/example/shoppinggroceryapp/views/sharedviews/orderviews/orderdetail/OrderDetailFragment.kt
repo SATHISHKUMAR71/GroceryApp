@@ -332,6 +332,7 @@ class OrderDetailFragment : Fragment() {
         var productQuantityI:String? = null
         var brandNameI:String? =null
         var isDeleted = false
+        var isDeleteTagVisible = false
         while (true){
             arguments?.let {
                 productId = it.getLong("productId$i")
@@ -351,7 +352,22 @@ class OrderDetailFragment : Fragment() {
             }
             val cartWithOrderData = CartWithProductData(productId,mainImageI,productNameI?:"",descriptionI?:"",totalItemsI,unitPriceI,manufactureDateI?:"",expiryDateI?:"",productQuantityI?:"",brandNameI?:"")
             orderDetailViewModel.selectedOrderWithProductData.add(cartWithOrderData)
-            addView(productsContainer,cartWithOrderData,isDeleted)
+            println("432543 ON UPDATE THE DELIVERY STATUES $deliveryStatusText ${deliveryFrequency.text}")
+            try {
+                var text = deliveryStatusText?.split(' ')?.get(0)
+                text?.let {
+                    if(it=="Delivered" && deliveryFrequency.text.toString()=="Once"){
+                        println("432543 ON UPDATE THE DELIVERY STATUES IN IF")
+                        isDeleted = false
+                        isDeleteTagVisible = true
+                }
+                }
+
+            }
+            catch (e:Exception){
+                println("Exception in split $e")
+            }
+            addView(productsContainer,cartWithOrderData,isDeleted,isDeleteTagVisible)
             if(!isDeleted) {
                 totalItems++
             }
@@ -460,7 +476,7 @@ class OrderDetailFragment : Fragment() {
     }
 
 
-    private fun addView(container:LinearLayout,productInfo: CartWithProductData,addDeleteTag:Boolean){
+    private fun addView(container:LinearLayout,productInfo: CartWithProductData,addDeleteTag:Boolean,isDeleteTagVisible:Boolean){
         val newView =LayoutInflater.from(requireContext()).inflate(R.layout.ordered_product_layout,container,false)
         newView.findViewById<ImageView>(R.id.orderedProductImage)
         newView.setOnClickListener {
@@ -482,6 +498,9 @@ class OrderDetailFragment : Fragment() {
         else{
             newView.findViewById<TextView>(R.id.productDeletedTag).visibility = View.GONE
             totalPrice += (productInfo.totalItems*productInfo.unitPrice)
+        }
+        if(isDeleteTagVisible){
+            newView.findViewById<TextView>(R.id.productDeletedTag).visibility = View.VISIBLE
         }
         val totalPrice = "₹${(productInfo.totalItems*productInfo.unitPrice)}"
         newView.findViewById<TextView>(R.id.orderedProductTotalPrice).text = totalPrice
