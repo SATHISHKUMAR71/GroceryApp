@@ -99,6 +99,7 @@ class AddressAdapter(var addressEntityList: List<Address>, var fragment: Fragmen
             }
             notifyItemRangeChanged(0,addressEntityList.size)
             CartFragment.selectedAddressPosition = position
+            ShowShortToast.show("Address Changed Successfully",fragment.requireContext())
             CartFragment.selectedAddressEntity = addressEntityList[position]
             clickable =false
             fragment.parentFragmentManager.popBackStack()
