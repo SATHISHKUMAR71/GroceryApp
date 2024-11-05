@@ -1,5 +1,6 @@
 package com.example.shoppinggroceryapp.views.userviews.ordercheckoutviews.ordersummary
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -63,6 +64,7 @@ import com.example.shoppinggroceryapp.views.userviews.addressview.savedaddress.S
 import com.example.shoppinggroceryapp.views.userviews.cartview.cart.CartFragment
 import com.example.shoppinggroceryapp.views.userviews.ordercheckoutviews.PaymentFragment
 import com.example.shoppinggroceryapp.views.userviews.ordercheckoutviews.TimeSlots
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -83,6 +85,7 @@ class OrderSummaryFragment : Fragment() {
     private lateinit var continueToPayment:MaterialButton
     var tmpOrderId:Int? = null
     var isEditing = false
+    private lateinit var orderSummaryToolBar:MaterialToolbar
     private lateinit var viewProductDetails:MaterialButton
     private lateinit var deliveryFrequency:MaterialAutoCompleteTextView
     private lateinit var radioGroupTimeSlot:RadioGroup
@@ -90,6 +93,7 @@ class OrderSummaryFragment : Fragment() {
     private lateinit var noteForUserLayout: LinearLayout
     private lateinit var dayOfMonth:MaterialAutoCompleteTextView
     private lateinit var deliveryDate:TextView
+    private lateinit var appBar:AppBarLayout
     private var selectedOrder:OrderDetails? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,6 +116,7 @@ class OrderSummaryFragment : Fragment() {
         val mrpPrice = view.findViewById<TextView>(R.id.priceDetailsMrpPriceOrderSummary)
         val totalAmount = view.findViewById<TextView>(R.id.priceDetailsTotalAmountOrderSummary)
         continueToPayment = view.findViewById(R.id.continueButtonOrderSummary)
+        appBar = view.findViewById(R.id.appbarOrderSummary)
         viewProductDetails = view.findViewById(R.id.viewPriceDetailsButtonOrderSummary)
         selectedOrder = arguments?.let {
             OrderDetails(
@@ -126,7 +131,7 @@ class OrderSummaryFragment : Fragment() {
                 it.getString("orderedDate",""),
             )
         }
-        val orderSummaryToolBar = view.findViewById<MaterialToolbar>(R.id.orderSummaryToolbar)
+        orderSummaryToolBar = view.findViewById<MaterialToolbar>(R.id.orderSummaryToolbar)
         val db1 = AppDatabase.getAppDatabase(requireContext())
         val userDao = db1.getUserDao()
         val retailerDao = db1.getRetailerDao()
@@ -136,7 +141,7 @@ class OrderSummaryFragment : Fragment() {
         val recyclerViewProducts = view.findViewById<RecyclerView>(R.id.orderListRecyclerView)
         deliveryFrequency = view.findViewById(R.id.deliveryFrequency)
         deliveryFrequencyDay = view.findViewById(R.id.deliveryFrequencyDay)
-        val scrollView = view.findViewById<ScrollView>(R.id.orderSummaryScrollView)
+        val scrollView = view.findViewById<NestedScrollView>(R.id.orderSummaryScrollView)
         deliveryDate = view.findViewById<TextView>(R.id.textView)
         noteForUserLayout = view.findViewById(R.id.noteForUserLayout)
         val deliveryFrequencyDayLayout = view.findViewById<LinearLayout>(R.id.deliveryFrequencyDayLayout)
@@ -401,6 +406,21 @@ class OrderSummaryFragment : Fragment() {
         tmpCart = null
         tmpOrderId = null
         tmpAddress = null
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if(newConfig.orientation== Configuration.ORIENTATION_LANDSCAPE){
+            val params = (orderSummaryToolBar.layoutParams as AppBarLayout.LayoutParams)
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP or
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            orderSummaryToolBar.layoutParams = params
+        }
+        else if(newConfig.orientation== Configuration.ORIENTATION_PORTRAIT){
+            val params = (orderSummaryToolBar.layoutParams as AppBarLayout.LayoutParams)
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+            orderSummaryToolBar.layoutParams = params
+        }
+        appBar.setExpanded(true)
     }
 
     private fun addTextChangedListeners(materialAutoCompleteView:MaterialAutoCompleteTextView, tag:String){
