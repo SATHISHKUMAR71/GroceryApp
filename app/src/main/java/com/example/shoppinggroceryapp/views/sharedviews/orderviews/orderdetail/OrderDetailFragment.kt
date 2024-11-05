@@ -19,6 +19,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -73,6 +74,7 @@ class OrderDetailFragment : Fragment() {
         val mrpPrice = view.findViewById<TextView>(R.id.priceDetailsMrpPrice)
         val grandTot = view.findViewById<TextView>(R.id.priceDetailsTotalAmount)
         isRestartApp  = arguments?.getBoolean("restartApp")==true
+
         selectedOrder = arguments?.let {
             OrderDetails(
                 it.getInt("orderId",-1),
@@ -435,6 +437,11 @@ class OrderDetailFragment : Fragment() {
         if(isOrderedProduct==true){
             deleteSubscription.visibility = View.GONE
             changeSubscription.visibility = View.GONE
+        }
+        if(isRestartApp){
+            view.findViewById<LinearLayout>(R.id.linearLayout12).apply {
+                this.setPadding(this.paddingLeft,this.paddingTop,this.paddingRight,20)
+            }
         }
         val onBackPressedCallback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
