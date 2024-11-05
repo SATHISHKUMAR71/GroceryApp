@@ -19,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
@@ -290,8 +291,9 @@ class OrderSummaryFragment : Fragment() {
         }
 
         continueToPayment.setOnClickListener {
+            println("12332 CONTINUE TO PAYMENT CLICKED")
             if(deliveryFrequency.text.isEmpty()){
-                ShowShortSnackBar.showRedColor(requireView(),"Please Select the Delivery Frequency")
+                ShowShortSnackBar.showRedColor(requireActivity().window.decorView.findViewById<View>(android.R.id.content),"Please Select the Delivery Frequency")
             }
             else {
                 if(once){
@@ -316,7 +318,7 @@ class OrderSummaryFragment : Fragment() {
     private fun checkSlotChosen(choice:Int?) {
         if(radioGroupTimeSlot.checkedRadioButtonId==-1){
             view?.let {
-                ShowShortSnackBar.showRedColor(requireView(),"Please choose the Slot")
+                ShowShortSnackBar.showRedColor(requireActivity().window.decorView.findViewById<View>(android.R.id.content),"Please choose the Slot")
             }
         }
         else{
@@ -324,7 +326,7 @@ class OrderSummaryFragment : Fragment() {
                 1 -> doPaymentTransaction(radioGroupTimeSlot.findViewById<RadioButton>(radioGroupTimeSlot.checkedRadioButtonId).text.toString(),null,null)
                 2 -> {
                     if(deliveryFrequencyDay.text.isEmpty()){
-                        ShowShortSnackBar.showRedColor(requireView(),"Please choose the Day")
+                        ShowShortSnackBar.showRedColor(requireActivity().window.decorView.findViewById<View>(android.R.id.content),"Please choose the Day")
                     }
                     else {
                         var weekDay: Int = -1
@@ -346,7 +348,7 @@ class OrderSummaryFragment : Fragment() {
                 }
                 3 ->{
                     if(dayOfMonth.text.isEmpty()){
-                        ShowShortSnackBar.showRedColor(requireView(),"Please Choose the Day of Month")
+                        ShowShortSnackBar.showRedColor(requireActivity().window.decorView.findViewById<View>(android.R.id.content),"Please Choose the Day of Month")
                     }
                     else{
                         try{

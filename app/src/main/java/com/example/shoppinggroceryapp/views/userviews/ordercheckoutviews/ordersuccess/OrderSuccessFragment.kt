@@ -1,6 +1,7 @@
 package com.example.shoppinggroceryapp.views.userviews.ordercheckoutviews.ordersuccess
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,12 +31,15 @@ import com.example.shoppinggroceryapp.views.sharedviews.orderviews.orderdetail.O
 import com.example.shoppinggroceryapp.views.userviews.cartview.FindNumberOfCartItems
 import com.example.shoppinggroceryapp.views.userviews.cartview.cart.CartFragment
 import com.example.shoppinggroceryapp.views.userviews.ordercheckoutviews.PaymentFragment
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 
 
 class OrderSuccessFragment : Fragment() {
 
+    private lateinit var orderSuccessAppbar:AppBarLayout
+    private lateinit var orderSuccessToolbar:MaterialToolbar
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -53,7 +57,8 @@ class OrderSuccessFragment : Fragment() {
             GroceryAppUserVMFactory(userDao, retailerDao)
         )[OrderSuccessViewModel::class.java]
         orderSuccessViewModel.oldCartId = MainActivity.cartId
-
+        orderSuccessAppbar = view.findViewById(R.id.orderSuccessAppbar)
+        orderSuccessToolbar = view.findViewById(R.id.orderSuccessToolbar)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object :OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 println("ON ORDER SUCCESS FRAGMENT BACKUP")
@@ -202,7 +207,21 @@ class OrderSuccessFragment : Fragment() {
 //        requireActivity().finish()
     }
 
-
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if(newConfig.orientation== Configuration.ORIENTATION_LANDSCAPE){
+            val params = (orderSuccessToolbar.layoutParams as AppBarLayout.LayoutParams)
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP or
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            orderSuccessToolbar.layoutParams = params
+        }
+        else if(newConfig.orientation== Configuration.ORIENTATION_PORTRAIT){
+            val params = (orderSuccessToolbar.layoutParams as AppBarLayout.LayoutParams)
+            params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+            orderSuccessToolbar.layoutParams = params
+        }
+        orderSuccessAppbar.setExpanded(true)
+    }
     override fun onDestroy() {
         super.onDestroy()
         InitialFragment.hideBottomNav.value = false

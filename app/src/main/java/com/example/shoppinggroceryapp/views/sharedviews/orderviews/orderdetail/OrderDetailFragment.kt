@@ -60,7 +60,7 @@ class OrderDetailFragment : Fragment() {
     private var totalPrice = 0f
     private var selectedOrder:OrderDetails? = null
     var status:MutableLiveData<String> = MutableLiveData()
-
+    var isRestartApp = false
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +72,7 @@ class OrderDetailFragment : Fragment() {
         val changeSubscription = view.findViewById<MaterialButton>(R.id.modifySubscriptionOrder)
         val mrpPrice = view.findViewById<TextView>(R.id.priceDetailsMrpPrice)
         val grandTot = view.findViewById<TextView>(R.id.priceDetailsTotalAmount)
-        val isRestartApp  = arguments?.getBoolean("restartApp")==true
+        isRestartApp  = arguments?.getBoolean("restartApp")==true
         selectedOrder = arguments?.let {
             OrderDetails(
                 it.getInt("orderId",-1),
@@ -491,8 +491,10 @@ class OrderDetailFragment : Fragment() {
     private fun addView(container:LinearLayout,productInfo: CartWithProductData,addDeleteTag:Boolean,isDeleteTagVisible:Boolean){
         val newView =LayoutInflater.from(requireContext()).inflate(R.layout.ordered_product_layout,container,false)
         newView.findViewById<ImageView>(R.id.orderedProductImage)
-        newView.setOnClickListener {
-            orderDetailViewModel.getProductById(productInfo.productId)
+        if(!isRestartApp) {
+            newView.setOnClickListener {
+                orderDetailViewModel.getProductById(productInfo.productId)
+            }
         }
         lifecycleScope.launch {
             SetProductImage.setImageView(newView.findViewById(R.id.orderedProductImage),productInfo.mainImage?:"",
