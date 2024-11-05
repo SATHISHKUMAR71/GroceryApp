@@ -187,14 +187,6 @@ class OfferFragment : Fragment() {
                 offerViewModel.doSorting(adapter, it, productEntities, ProductSorter())?.let { list ->
                     productEntities = list
                 }
-                ShowShortToast.show(when(it){
-                    0 -> "Sorted by Manufacture Date"
-                    1 -> "Sorted by Expiry Date"
-                    2 -> "Sorted by Discount"
-                    3 -> "Sorted from Lowest to Highest Price"
-                    4 -> "Sorted from Highest to Lowest Price"
-                    else -> "Sorted"
-                },requireContext())
             }
             offerList.layoutManager?.let {layoutManager ->
                 (layoutManager as LinearLayoutManager).scrollToPosition(0)

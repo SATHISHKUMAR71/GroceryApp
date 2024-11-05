@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.lifecycle.MutableLiveData
 import com.example.shoppinggroceryapp.R
+import com.example.shoppinggroceryapp.helpers.toast.ShowShortToast
 import com.example.shoppinggroceryapp.views.sharedviews.productviews.productlist.ProductListFragment.Companion.productListFirstVisiblePos
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -32,26 +33,31 @@ class BottomSheetDialogFragment:BottomSheetDialogFragment() {
         view.findViewById<MaterialButton>(R.id.sortByManufacturedDate).setOnClickListener {
             radioButtonManu.isChecked =true
             selectedOption.value = 0
+            showToast("Sorted by Manufacture Date")
             dismiss()
         }
         view.findViewById<MaterialButton>(R.id.sortByExpiryDate).setOnClickListener {
             expiryRadioButton.isChecked =true
             selectedOption.value = 1
+            showToast("Sorted by Expiry Date")
             dismiss()
         }
         view.findViewById<MaterialButton>(R.id.sortByDiscount).setOnClickListener {
             selectedOption.value = 2
             discountRadioButton.isChecked =true
+            showToast("Sorted by Discount")
             dismiss()
         }
         view.findViewById<MaterialButton>(R.id.sortByPriceLowToHigh).setOnClickListener {
             priceLowToHighRadioButton.isChecked =true
             selectedOption.value = 3
+            showToast("Sorted from Lowest to Highest Price")
             dismiss()
         }
         view.findViewById<MaterialButton>(R.id.sortByPriceHightoLow).setOnClickListener {
             priceHighToLow.isChecked =true
             selectedOption.value = 4
+            showToast("Sorted from Highest to Lowest Price")
             dismiss()
         }
 
@@ -100,5 +106,8 @@ class BottomSheetDialogFragment:BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
 //        selectedOption.value = null
+    }
+    fun showToast(text:String){
+        ShowShortToast.show(text,requireContext())
     }
 }
