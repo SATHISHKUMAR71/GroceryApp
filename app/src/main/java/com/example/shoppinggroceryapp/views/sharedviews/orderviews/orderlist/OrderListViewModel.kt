@@ -328,12 +328,13 @@ class OrderListViewModel(private var mGetOrderForUser: GetOrderForUser,
     }
     @RequiresApi(Build.VERSION_CODES.O)
     fun getWeeklyPreparedData(weeklyOnce: WeeklyOnce, timeSlot: TimeSlot,orderDate:String):String{
+        DateGenerator.getDayForWeek(weeklyOnce.weekId)
         if(DateGenerator.getCurrentDay()==days[weeklyOnce.weekId]){
             if(checkTimeSlot(timeSlot,orderDate)=="Next Delivery Tomorrow"){
-                return "Next Delivery on Next ${days[weeklyOnce.weekId]}"
+                return "Next Delivery on ${DateGenerator.getDayForWeek(weeklyOnce.weekId)}"
             }
         }
-        return "Next Delivery this ${days[weeklyOnce.weekId]} "
+        return "Next Delivery on ${DateGenerator.getDayForWeek(weeklyOnce.weekId)}"
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

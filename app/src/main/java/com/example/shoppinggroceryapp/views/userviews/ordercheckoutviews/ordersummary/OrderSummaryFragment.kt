@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -163,7 +164,7 @@ class OrderSummaryFragment : Fragment() {
                     View.GONE
                 view.findViewById<LinearLayout>(R.id.linearLayout11)
                     .setBackgroundColor(Color.TRANSPARENT)
-                viewProductDetails.visibility = View.GONE
+                viewProductDetails.visibility = View.INVISIBLE
             }
         }
         if(tmpCart==0) {

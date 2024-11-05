@@ -205,10 +205,10 @@ class ProductDetailFragment : Fragment() {
                         MaterialAlertDialogBuilder(requireContext())
                             .setTitle("Delete Product!")
                             .setMessage("Are you Sure to delete this product in Inventory?")
-                            .setNegativeButton("No"){dialog,which ->
+                            .setNegativeButton("Cancel"){dialog,which ->
                                 dialog.dismiss()
                             }
-                            .setPositiveButton("Yes"){dialog,which ->
+                            .setPositiveButton("Delete"){dialog,which ->
                                 ProductListFragment.selectedProductEntity.value?.let {
                                     productDetailViewModel.removeProduct(it)
                                 }

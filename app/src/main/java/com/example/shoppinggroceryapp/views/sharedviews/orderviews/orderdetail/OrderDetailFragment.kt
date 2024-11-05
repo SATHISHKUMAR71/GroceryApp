@@ -291,10 +291,9 @@ class OrderDetailFragment : Fragment() {
                                 timeSlot,
                                 currentTime,
                                 selectedOrder
-                            ) ?: "Next Delivery on Next ${days[it]}"
+                            ) ?: "Next Delivery on ${DateGenerator.getDayForWeek(it)}"
                         } else {
-                            text = "Next Delivery this "
-                            text += days[it]
+                            text = "Next Delivery on ${DateGenerator.getDayForWeek(it)} "
                         }
                     } else if (selectedOrder?.deliveryFrequency == "Monthly Once") {
                         var currentDay = DateGenerator.getCurrentDayOfMonth()

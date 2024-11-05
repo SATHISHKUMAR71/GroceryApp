@@ -101,6 +101,23 @@ class DateGenerator {
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
+        fun getDayForWeek(weekId:Int):String{
+            println("4567823 ${getCurrentDay()} $weekId ")
+            var a = getWeekId(getCurrentDay())
+            var diff = 0
+            while (a!=weekId){
+                a++
+                diff++
+                a %= 7
+                println("LOOP RUNS THIS TIMES FOR $weekId")
+            }
+            println("LOOP RUNS THIS TIMES FOR final diff $diff for week $weekId")
+            LocalDate.now().plusDays(diff.toLong())
+            println("198923 Days ${LocalDate.now().plusDays(diff.toLong())} add 30 days ${LocalDate.now().plusDays(30)}")
+            return getDayAndMonth(LocalDate.now().plusDays(diff.toLong()).toString())
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
         fun getNextDayForSpecificMonth(dayOfMonth: String):String{
             var updatedDate = ""
             var date = getCurrentDate()
@@ -113,6 +130,18 @@ class DateGenerator {
 //            return deliveryDateDateFormat.plusMonths(1).toString()
             val nextMonth = deliveryDateDateFormat.plusMonths(1).toString().split("-")
             return "${months[nextMonth[1].toInt()-1]} ${nextMonth[2]}, ${nextMonth[0]}"
+        }
+        fun getWeekId(day:String):Int{
+            return when(day){
+                "Sunday"->0
+                "Monday"->1
+                "Tuesday"->2
+                "Wednesday"->3
+                "Thursday"->4
+                "Friday"->5
+                "Saturday"->6
+                else -> -1
+            }
         }
     }
 
