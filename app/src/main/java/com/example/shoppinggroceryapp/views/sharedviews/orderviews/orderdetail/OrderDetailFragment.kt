@@ -440,7 +440,7 @@ class OrderDetailFragment : Fragment() {
         }
         if(isRestartApp){
             view.findViewById<LinearLayout>(R.id.linearLayout12).apply {
-                this.setPadding(this.paddingLeft,this.paddingTop,this.paddingRight,20)
+                this.setPadding(this.paddingLeft,this.paddingTop,this.paddingRight,50)
             }
         }
         val onBackPressedCallback = object : OnBackPressedCallback(true){
