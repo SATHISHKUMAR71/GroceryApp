@@ -43,6 +43,7 @@ import com.example.shoppinggroceryapp.views.userviews.cartview.FindNumberOfCartI
 import com.example.shoppinggroceryapp.views.userviews.ordercheckoutviews.PaymentFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -463,10 +464,10 @@ class OrderDetailFragment : Fragment() {
 
     private fun setUpDeleteSubscriptionListeners() {
         deleteSubscription.setOnClickListener {
-            AlertDialog.Builder(requireContext())
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(alertTitle)
                 .setMessage(alertMessage)
-                .setPositiveButton("Yes"){dialog,_->
+                .setPositiveButton("Cancel Order"){dialog,_->
                     dialog.dismiss()
                     selectedOrder?.let {
                         orderDetailViewModel.updateOrderDetails(it.copy(deliveryStatus = "Cancelled"))

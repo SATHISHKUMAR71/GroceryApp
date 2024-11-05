@@ -69,6 +69,7 @@
                         app:icon="@drawable/close_24px"
                         app:iconGravity="textStart"
                         android:layout_weight="0.1"
+
                         android:text="Stop Subscription"
                         app:cornerRadius="4dp" />
                     <!--        <com.google.android.material.button.MaterialButton-->
@@ -235,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp">
+                        android:layout_marginEnd="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -246,20 +247,21 @@
 
                         <TextView
                             android:id="@+id/productDeliveryFrequency"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="5dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="1"
                             android:text="Weekly Once"
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/modifySubscriptionOrder"
                             android:layout_width="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="Change"
                             app:icon="@drawable/edit_24px"
                             android:layout_height="wrap_content"
-                            android:text="Change \n Subscription"
                             app:cornerRadius="4dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout14" />

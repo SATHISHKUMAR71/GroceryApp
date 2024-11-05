@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -189,6 +190,7 @@ class OrderSummaryFragment : Fragment() {
         mrpPrice.text =mrpAmt
         totalAmount.text = grandAmt
         viewProductDetails.setOnClickListener {
+
             scrollView.fullScroll(View.FOCUS_DOWN)
             scrollView.fullScroll(View.FOCUS_DOWN)
         }
