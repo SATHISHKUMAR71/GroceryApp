@@ -93,6 +93,7 @@
 <!--                        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"-->
 <!--                        android:textStyle="bold"-->
 <!--                        android:text="Buy 1 Free"/>-->
+
                     <ImageView
                         android:id="@+id/productImageLong"
                         android:layout_width="match_parent"
@@ -100,8 +101,21 @@
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
                         android:clipToOutline="true"
-
                         android:scaleType="fitXY"/>
+
+
+                    <ImageView
+                        android:id="@+id/hasMultipleImages"
+                        android:rotationY="-180"
+                        android:layout_width="wrap_content"
+                        android:elevation="20dp"
+                        android:alpha="0.8"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/filter_none_24px_filled"
+                        android:layout_height="wrap_content" />
+
                     <TextView
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                         android:textAlignment="center"
@@ -161,41 +175,41 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:id="@+id/moreImagesView"
-                android:elevation="2dp"
-                app:cardCornerRadius="5dp"
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/info_24px"
-                        app:tint="?attr/colorPrimary" />
-                    <TextView
-                        android:paddingStart="5dp"
-                        android:paddingEnd="10dp"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:id="@+id/moreImagesText"
-                        android:textAlignment="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+2 more"/>
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:id="@+id/moreImagesView"-->
+<!--                android:elevation="2dp"-->
+<!--                app:cardCornerRadius="5dp"-->
+<!--                android:visibility="invisible"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="20dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:src="@drawable/info_24px"-->
+<!--                        app:tint="?attr/colorPrimary" />-->
+<!--                    <TextView-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="10dp"-->
+<!--                        android:textColor="?attr/colorPrimary"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:id="@+id/moreImagesText"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="+2 more"/>-->
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
 
         <LinearLayout

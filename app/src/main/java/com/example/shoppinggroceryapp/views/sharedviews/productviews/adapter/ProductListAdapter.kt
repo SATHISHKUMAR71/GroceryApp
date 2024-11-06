@@ -260,30 +260,10 @@ class ProductListAdapter(var fragment: Fragment,
                 productListViewModel.getImagesCountForProduct(productEntityList[position].productId){
                     MainActivity.handler.post{
                         if(it==0){
-                            if(isShort){
-                                holder.itemView.findViewById<CardView>(R.id.moreImagesView).visibility = View.INVISIBLE
-                            }
-                            else {
-                                holder.itemView.findViewById<CardView>(R.id.moreImagesView).visibility =
-                                    View.GONE
-                            }
+                            holder.itemView.findViewById<ImageView>(R.id.hasMultipleImages).visibility = View.GONE
                         }
                         else {
-                            holder.itemView.findViewById<TextView>(R.id.moreImagesText).apply {
-                                text = "+$it more"
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    tooltipText = "This Product has $it more Images"
-                                }
-                                this.setOnClickListener{
-                                    this.performLongClick()
-                                }
-                            }
-                            holder.itemView.findViewById<CardView>(R.id.moreImagesView).apply {
-                                visibility = View.VISIBLE
-                                this.setOnClickListener{
-                                    holder.itemView.findViewById<TextView>(R.id.moreImagesText).performLongClick()
-                                }
-                            }
+                            holder.itemView.findViewById<ImageView>(R.id.hasMultipleImages).visibility = View.VISIBLE
                         }
                     }
                 }
